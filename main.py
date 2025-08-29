@@ -53,11 +53,11 @@ def events_to_html(events):
     event_list = [
         f"""\
 <a href={event["link"]}>
-    <ul>
+    <li>
         <h2>{event["title"]}</h2>
         <h3>{event["date"]}</h3>
         <h3>{event["location"]}</h4>
-    </ul>
+    </li>
 </a>
 """
         for event in events
@@ -65,6 +65,9 @@ def events_to_html(events):
 
     body = f"""\
 <html>
+    <head>
+        <style>{style}</style
+    </head>
     <body>
         <h1>{get_subject(events)}</h1>
         <ul>{"\n".join(event_list)}</ul>
@@ -75,15 +78,18 @@ def events_to_html(events):
     return body
 
 
-# ===== Setup =====
+# ===== File setup =====
 
 try:
     with open(EVENT_FILE, "r") as f:
         data = json.load(f)
 except FileNotFoundError:
     data = {}
-    with open(EVENT_FILE, "x") as file:
-        file.write("{}")
+    with open(EVENT_FILE, "x") as f:
+        f.write("{}")
+
+with open("style.css", "r") as f:
+    style = f.read()
 
 new_events = []
 
