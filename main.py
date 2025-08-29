@@ -1,6 +1,8 @@
 import requests
 import json
 import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
@@ -9,6 +11,9 @@ from bs4 import BeautifulSoup
 #  - email new opportunities.. to a subscription list?
 #  - large file optimisations: only read IDs, don't rewrite whole file (low priority)
 
+
+# ===== Constants =====
+
 load_dotenv()
 TO_EMAIL = os.getenv("TO_EMAIL")
 FROM_EMAIL = os.getenv("FROM_EMAIL")
@@ -16,6 +21,9 @@ FROM_PASS = os.getenv("FROM_PASS")
 
 BASE_URL = "https://uptree.co/"
 EVENT_FILE = "events.json"
+
+
+# ===== Functions =====
 
 def get_text(element):
     return element.text.rstrip().lstrip()
@@ -28,8 +36,46 @@ def card_to_dict(card):
         "link": "https://uptree.co" + card.a["href"]
     }
 
-def display_event(d):
-    return f"{d["title"]}\n{d["date"]}\n{d["location"]}\n{d["link"]}\n"
+def get_subject(events):
+    if len(events) == 1:
+        return "1 New Uptree Event"
+    return f"{len(events)} New Uptree Events"
+
+def events_to_text(events):
+    body = []
+    for event in events:
+        body.append(f"{event["title"]}\n{event["date"]}\n{event["location"]}\n{event["link"]}\n")
+    body = "\n".join(body)
+
+    return body
+
+def events_to_html(events):
+    event_list = [
+        f"""\
+<a href={event["link"]}>
+    <ul>
+        <h2>{event["title"]}</h2>
+        <h3>{event["date"]}</h3>
+        <h3>{event["location"]}</h4>
+    </ul>
+</a>
+"""
+        for event in events
+    ]
+
+    body = f"""\
+<html>
+    <body>
+        <h1>{get_subject(events)}</h1>
+        <ul>{"\n".join(event_list)}</ul>
+    </body>
+</html>
+"""
+
+    return body
+
+
+# ===== Setup =====
 
 try:
     with open(EVENT_FILE, "r") as f:
@@ -58,21 +104,30 @@ for page_name in ["opportunities", "events"]:
 
         if id not in data:
             d = card_to_dict(card)
-            e = display_event(d)
             data[id] = d
-            new_events.append(e)
+            new_events.append(d)
 
 # ===== Save/email results =====
 
 if new_events:
+    subject = get_subject(new_events)
+    print(subject)
+
     with open(EVENT_FILE, "w") as f:
         json.dump(data, f)
 
-    content = "Subject: New Uptree Events\n\n" + "\n".join(new_events)
-    print(content)
+    message = MIMEMultipart("alternative")
+    message["Subject"] = subject
+    message["From"] = FROM_EMAIL
+    message["To"] = TO_EMAIL
+
+    text = events_to_text(new_events)
+    html = events_to_html(new_events)
+    message.attach(MIMEText(text, "plain"))
+    message.attach(MIMEText(html, "html"))
 
     port = 465
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
         server.login(FROM_EMAIL, FROM_PASS)
-        server.sendmail(FROM_EMAIL, TO_EMAIL, content)
+        server.sendmail(FROM_EMAIL, TO_EMAIL, message.as_string())
