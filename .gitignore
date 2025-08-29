@@ -1,4 +1,5 @@
 .idea
+.env
 events.json
 
 # Byte-compiled / optimized / DLL files
