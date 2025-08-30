@@ -1,5 +1,9 @@
 h1 {
-
+    padding: 15px 20px 15px 20px;
+    margin: 10px;
+    background-color: #f66;
+    color: white;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 ul {
@@ -16,14 +20,24 @@ a {
 li {
     padding: 5px 20px 5px 20px;
     margin: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
+    background-color: #eee;
 }
 
 h2 {
-
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 22.5px;
+    font-weight: 400;
 }
 
 h3 {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
 
+h4 {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
 }
