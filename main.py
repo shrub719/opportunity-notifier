@@ -21,7 +21,7 @@ FROM_PASS = os.getenv("FROM_PASS")
 
 BASE_URL = "https://uptree.co/"
 EVENT_FILE = "events.json"
-
+NEW_LINE = "\n"
 
 # ===== Functions =====
 
@@ -51,11 +51,10 @@ def events_to_text(events):
 
 def events_to_html(events):
     event_list = [
-        f"""\
-<a href={event["link"]}>
+        f"""<a href={event["link"]}>
     <li>
         <h2>{event["title"]}</h2>
-        <h3>{event["date"].replace("\n", "<br />")}</h3>
+        <h3>{event["date"].replace(NEW_LINE, "<br />")}</h3>
         <h4>{event["location"]}</h4>
     </li>
 </a>
@@ -63,8 +62,7 @@ def events_to_html(events):
         for event in events
     ]
 
-    body = f"""\
-<html>
+    body = f"""<html>
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +71,7 @@ def events_to_html(events):
     </head>
     <body>
         <h1>{get_subject(events)}</h1>
-        <ul>{"\n".join(event_list)}</ul>
+        <ul>{NEW_LINE.join(event_list)}</ul>
     </body>
 </html>
 """
