@@ -44,7 +44,7 @@ def get_subject(events):
 def events_to_text(events):
     body = []
     for event in events:
-        body.append(f"{event["title"]}\n{event["date"]}\n{event["location"]}\n{event["link"]}\n")
+        body.append("\n".join([event["title"], event["date"], event["location"], event["link"]]))
     body = "\n".join(body)
 
     return body
