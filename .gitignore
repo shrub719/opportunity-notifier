@@ -1,6 +1,6 @@
 .idea
 .env
-events.json
+*.json
 *.pem
 
 # Byte-compiled / optimized / DLL files

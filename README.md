@@ -1,6 +1,12 @@
-# Uptree Checker
+# Opportunity Notifier
 
-Python script to report new jobs, placements and events on [Uptree](https://uptree.co/).
+Python script to report new jobs, placements and events on various websites.
+
+## Features
+
+Currently checks:
+- [x] [Uptree](https://uptree.co/)
+- [ ] [the-trackr.com](https://the-trackr.com/trackers/)
 
 ## Configuration
 
@@ -11,6 +17,4 @@ Python script to report new jobs, placements and events on [Uptree](https://uptr
 
 ## Usage
 
-Run periodically, allowing it to check for new updates.
-
-The program stores a log of past events in `events.json`.
+Run periodically (e.g. cron, systemd timer), allowing it to check for new updates.
