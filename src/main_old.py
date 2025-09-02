@@ -7,11 +7,6 @@ import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 
-# TODO:
-#  - email new opportunities.. to a subscription list?
-#  - large file optimisations: only read IDs, don't rewrite whole file (low priority)
-
-
 # ===== Constants =====
 
 load_dotenv()
@@ -20,7 +15,7 @@ FROM_EMAIL = os.getenv("FROM_EMAIL")
 FROM_PASS = os.getenv("FROM_PASS")
 
 BASE_URL = "https://uptree.co/"
-EVENT_FILE = "events.json"
+EVENT_FILE = "../events.json"
 NEW_LINE = "\n"
 
 # ===== Functions =====
