@@ -1,3 +1,0 @@
-import uptree
-
-sites = [uptree]

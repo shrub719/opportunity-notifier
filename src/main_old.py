@@ -84,7 +84,7 @@ except FileNotFoundError:
     with open(EVENT_FILE, "x") as f:
         f.write("{}")
 
-with open("style.css", "r") as f:
+with open("utils/style.css", "r") as f:
     style = f.read()
 
 new_events = []
