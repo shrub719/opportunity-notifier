@@ -11,7 +11,7 @@ for site in scraper.sites:
             new_entries.append(entry)
             data[site.id][id] = entry
 
-    text = formatter.format_text(new_entries, site.name, site.color)
+    text = formatter.format_text(new_entries, site.name)
     html = formatter.format_html(new_entries, site.name, site.color)
     message.append(text, html)
 
