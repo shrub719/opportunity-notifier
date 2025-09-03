@@ -11,17 +11,18 @@ class Uptree():
     def _get_text(element):
         return element.text.rstrip().lstrip()
 
-    def _card_to_dict(self, card, id):
+    def _card_to_dict(self, card):
         return {
-            "id": id,
             "title": self._get_text(card.h3),
-            "date": self._get_text(card.h4),
-            "location": self._get_text(card.address),
+            "details": [
+                self._get_text(card.h4),
+                self._get_text(card.address)
+            ],
             "link": "https://uptree.co" + card.a["href"]
         }
 
-    def scrape(self, data):
-        entries = []
+    def scrape(self):
+        entries = {}
 
         for page_name in ["opportunities", "events"]:
             url = "https://uptree.co/" + page_name
@@ -34,8 +35,7 @@ class Uptree():
                 id = card.a["href"].split("/")
                 id = self.id + "/" + "/".join(id[1:4])
                 d = self._card_to_dict(id)
-                data[id] = d
-                entries.append(d)
+                entries[id] = d
 
         return entries
 
