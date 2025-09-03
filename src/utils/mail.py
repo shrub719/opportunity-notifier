@@ -2,7 +2,8 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-with open("style.css", "r") as f:
+# note: the path utils/style.css is only correct when this is imported from main.py
+with open("utils/style.css", "r") as f:
     style = f.read()
 
 TEXT_TOP = """Sixth Sense\n\n"""
@@ -40,7 +41,8 @@ class Message():
         self.message["To"] = self.to_addr
 
     def append(self, text, html):
-        pass
+        self.text_content.append(text)
+        self.html_content.append(html)
 
     def end(self):
         text = (TEXT_TOP
@@ -52,6 +54,8 @@ class Message():
 
         self.message.attach(MIMEText(text, "plain"))
         self.message.attach(MIMEText(html, "html"))
+        print(text)
+        print(html)
 
         if self.count == 1:
             subject = "1 New Entry"  # TODO: replace subjects
