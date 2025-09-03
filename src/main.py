@@ -28,9 +28,10 @@ for site in scraper.sites:
             new_entries.append(entry)
             data[site.id][id] = entry
 
-    if send:
+    if send and new_entries:
         text = formatter.format_text(new_entries, site.name)
         html = formatter.format_html(new_entries, site.name, site.color)
+        message.count += len(new_entries)
         message.append(text, html)
 
 message.end()
