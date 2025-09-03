@@ -1,6 +1,6 @@
-# Opportunity Notifier
+# Sixth Sense
 
-Python script to report new jobs, placements and events on various websites.
+A Python script that reports new opportunities for sixth formers.
 
 ## Features
 
