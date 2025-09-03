@@ -1,7 +1,18 @@
 from utils import scraper, storage, mail, formatter
+import os
+from dotenv import load_dotenv
+
 
 data = storage.load()
-message = mail.Message(version="1.0.0-beta")
+
+load_dotenv()
+to_addr = os.getenv("TO_EMAIL")
+from_addr = os.getenv("FROM_EMAIL")
+from_pass = os.getenv("FROM_PASS")
+message = mail.Message(
+    to_addr, from_addr, from_pass,
+    version="1.0.0-beta"
+)
 
 for site in scraper.sites:
     entries = site.scrape()
