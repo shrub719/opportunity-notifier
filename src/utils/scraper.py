@@ -34,11 +34,11 @@ class Uptree():
             for card in cards:
                 id = card.a["href"].split("/")
                 id = self.id + "/" + "/".join(id[1:4])
-                d = self._card_to_dict(id)
+                d = self._card_to_dict(card)
                 entries[id] = d
 
         return entries
 
 sites = [
-    Uptree
+    Uptree()
 ]
