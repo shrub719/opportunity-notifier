@@ -58,9 +58,9 @@ class Message():
         print(html)
 
         if self.count == 1:
-            subject = "1 New Entry"  # TODO: replace subjects
+            subject = "1 New Opportunity"  # TODO: replace subjects
         else:
-            subject = f"{self.count} New Entries"
+            subject = f"{self.count} New Opportunities"
         self.message["Subject"] = subject
 
     def send(self):

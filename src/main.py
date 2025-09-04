@@ -3,7 +3,8 @@ import os
 from dotenv import load_dotenv
 
 
-data = storage.load()
+FILE_NAME = "opportunities.json"
+data = storage.load(FILE_NAME)
 
 load_dotenv()
 to_addr = os.getenv("TO_EMAIL")
@@ -37,4 +38,4 @@ for site in scraper.sites:
 message.end()
 message.send()
 
-storage.save(data)
+storage.save(FILE_NAME, data)

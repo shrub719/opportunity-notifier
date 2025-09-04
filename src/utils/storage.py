@@ -1,18 +1,16 @@
 import json
 
-FILE_NAME = "entries.json"
-
-def load():
+def load(file_name):
     try:
-        with open(FILE_NAME, "r") as f:
+        with open(file_name, "r") as f:
             data = json.load(f)
     except FileNotFoundError:
         data = {}
-        with open(FILE_NAME, "x") as f:
+        with open(file_name, "x") as f:
             f.write("{}")
 
     return data
 
-def save(data):
-    with open(FILE_NAME, "w") as f:
+def save(file_name, data):
+    with open(file_name, "w") as f:
         json.dump(data, f, indent=2)

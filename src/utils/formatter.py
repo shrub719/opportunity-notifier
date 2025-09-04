@@ -1,7 +1,7 @@
 def get_title(entries, name):
     if len(entries) == 1:
-        return f"1 New {name} Entry"
-    return f"{len(entries)} New {name} Entries"
+        return f"1 New {name} Opportunity"
+    return f"{len(entries)} New {name} Opportunities"
 
 def format_text(entries, name):
     title = get_title(entries, name)
