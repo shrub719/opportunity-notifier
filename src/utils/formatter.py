@@ -19,12 +19,12 @@ def format_text(entries, name):
 def format_html(entries, name, color):
     title = get_title(entries, name)
 
-    html = f"<div style='background-color: {color};'>\n<h1>{title}</h1>\n"
+    html = f"<div>\n<h1 style='background-color: {color};'>{title}</h1>\n<ul>\n"
     for entry in entries:
         html = html + f"<li>\n<h2>{entry["title"]}</h2>\n"
         for detail in entry["details"]:
             html = html + f"<h3>{detail}</h3>\n"
-        html = html + f"<a href='{entry["link"]}'>Link</a>\n</li>\n"
-    html = html + "</div>"
+        html = html + f"<a href='{entry["link"]}'><h3>Link</h3></a>\n</li>\n"
+    html = html + "</ul>\n</div>"
 
     return html
