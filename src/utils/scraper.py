@@ -1,6 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
 
+class Trackr():
+    def __init__(self):
+        self.name = "Trackr"
+        self.id = "trackr"
+        self.color = "#00798c"
+
+    def scrape(self):
+        entries = {"trackr/test": {
+            "title": "Test",
+            "details": [],
+            "link": "about:blank"
+        }}
+
+        return entries
+
 class Uptree():
     def __init__(self):
         self.name = "Uptree"
@@ -40,5 +55,6 @@ class Uptree():
         return entries
 
 sites = [
-    Uptree()
+    Uptree(),
+    Trackr()
 ]
